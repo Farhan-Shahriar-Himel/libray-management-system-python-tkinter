@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+from registration import RegistrationWindow
 
 class LoginApp:
     def __init__(self, master):
@@ -27,7 +28,7 @@ class LoginApp:
 
         # Welcome label
         self.welcome_label = tk.Label(self.master, text="Welcome To The Universe Of Knowledge",
-                                       font=("Arial", 16, "bold"), bg="#FFFFFF", 
+                                       font=("Arial", 16, "bold"), bg="white", fg="black", 
                                        borderwidth=2, relief=tk.SOLID)
         self.welcome_label.pack(pady=10, padx=10, fill=tk.X)
 
@@ -86,87 +87,6 @@ class LoginApp:
         self.master.withdraw()  # Minimize the main window
         RegistrationWindow(self.master)
 
-class RegistrationWindow:
-    def __init__(self, master):
-        self.master = master
-        self.window = tk.Toplevel(master)  # Create a new top-level window
-        self.window.title("Register")
-        self.window.geometry("800x600")
-
-        # Load the background image
-        self.background_image = Image.open("books2.jpg")  # Replace with your image path
-        self.background_image = self.background_image.resize((800, 600), Image.LANCZOS)
-        self.bg_image = ImageTk.PhotoImage(self.background_image)
-
-        # Create a label to hold the background image
-        self.background_label = tk.Label(self.window, image=self.bg_image)
-        self.background_label.place(relwidth=1, relheight=1)  # Make the label fill the entire window
-
-        # Welcome label
-        self.welcome_label = tk.Label(self.window, text="Welcome To The Universe Of Knowledge",
-                                       font=("Arial", 16, "bold"), bg="#FFFFFF", 
-                                       borderwidth=2, relief=tk.SOLID)
-        self.welcome_label.pack(pady=10, padx=10, fill=tk.X)
-
-        # Create main frame for registration
-        self.main_frame = tk.Frame(self.window, bg="#FFFFFF", bd=5, relief=tk.RAISED)
-        self.main_frame.place(relx=0.5, rely=0.5, anchor='center', width=400)  # Center the frame
-
-        # Registration title
-        self.registration_title = tk.Label(self.main_frame, text="Register Here", font=("Arial", 20, "bold"), bg="#FFFFFF")
-        self.registration_title.pack(pady=10)
-
-        # Create registration form fields
-        self.create_form()
-
-    def create_form(self):
-        # List of labels and types
-        form_fields = [
-            ("Name:", "text"),
-            ("Email:", "email"),
-            ("Phone:", "number"),
-            ("Address:", "text"),
-            ("Password:", "password"),
-            ("Confirm Password:", "password"),
-        ]
-
-        self.entries = {}
-
-        for label_text, field_type in form_fields:
-            frame = tk.Frame(self.main_frame, bg="#FFFFFF")
-            frame.pack(pady=5)
-
-            label = tk.Label(frame, text=label_text, bg="#FFFFFF")
-            label.pack(side=tk.LEFT, padx=10)
-
-            entry = tk.Entry(frame, width=30, borderwidth=2, relief=tk.SUNKEN)
-            if field_type == "password":
-                entry.config(show="*")  # Mask password
-            entry.pack(side=tk.LEFT, padx=10)
-            self.entries[label_text] = entry
-
-        # Submit button
-        self.submit_button = tk.Button(self.main_frame, text="Submit", command=self.submit, width=15, bg="#4CAF50", fg="white")
-        self.submit_button.pack(pady=20)
-
-    def submit(self):
-        # Here you would add your registration logic
-        name = self.entries["Name:"].get()
-        email = self.entries["Email:"].get()
-        phone = self.entries["Phone:"].get()
-        address = self.entries["Address:"].get()
-        password = self.entries["Password:"].get()
-        confirm_password = self.entries["Confirm Password:"].get()
-
-        if password == confirm_password:
-            messagebox.showinfo("Registration", f"Registered successfully!\nName: {name}\nEmail: {email}\nPhone: {phone}\nAddress: {address}")
-            # Clear fields after registration
-            for entry in self.entries.values():
-                entry.delete(0, tk.END)
-            self.window.destroy()  # Close the registration window
-            self.master.deiconify()  # Restore the main window
-        else:
-            messagebox.showwarning("Registration", "Passwords do not match!")
 
 # Run the application
 if __name__ == "__main__":
