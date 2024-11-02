@@ -1,4 +1,8 @@
- # self.welcome_label = tk.Label(self.window, text="Welcome To The Universe Of Knowledge",
-        #                                font=("Arial", 16, "bold"), bg="#FFFFFF", 
-        #                                borderwidth=2, relief=tk.SOLID)
-        # self.welcome_label.pack(pady=10,
+Frame(self.profile_window, bg="#FFFFFF", padx=20, pady=10, bd=2, relief="groove")
+        user_info_frame.pack(fill=tk.X, padx=20, pady=(20, 10))
+
+        tk.Label(user_info_frame, text="Username: Farhan", font=("Arial", 30), bg="#FFFFFF").grid(row=0, column=0, sticky="w")
+        tk.Label(user_info_frame, text="Email: farhan@gmail.com", font=("Arial", 16), bg="#FFFFFF").grid(row=1, column=0, sticky="w")
+        tk.Label(user_info_frame, text="Phone: 0192874849", font=("Arial", 16), bg="#FFFFFF").grid(row=2, column=0, sticky="w")
+        tk.Label(user_info_frame, text="Address: Mirpur, Dhaka", font=("Arial", 16), bg="#FFFFFF").grid(row=3, column=0, sticky="w")
+        tk.Label(user_info_frame, text="

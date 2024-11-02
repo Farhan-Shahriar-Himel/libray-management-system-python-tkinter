@@ -2,20 +2,28 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from registration import RegistrationWindow
+from data import Authenticate
+from Profile_window import Profile
 
 class LoginApp:
     def __init__(self, master):
         self.master = master
         self.master.title("Login Page")
-        self.master.geometry("800x600")
 
         # User credentials
         self.user_name = "farhan"
         self.pass_code = "1234"
 
+        width = self.master.winfo_screenwidth()
+        height = self.master.winfo_screenheight()
+
+        # self.master.geometry("800x600")
+        # self.master.geometry(f"{width}x{height}")
+        self.master.state("zoomed")
+
         # Load the background image
-        self.background_image = Image.open("books2.jpg")  # Replace with your image path
-        self.background_image = self.background_image.resize((800, 600), Image.LANCZOS)
+        self.background_image = Image.open("image/books2.jpg")  # Replace with your image path
+        self.background_image = self.background_image.resize((width, height), Image.LANCZOS)
         self.bg_image = ImageTk.PhotoImage(self.background_image)
 
         # Create a label to hold the background image
@@ -75,8 +83,11 @@ class LoginApp:
         password = self.password_entry.get()
 
         # Check credentials
-        if (username == self.user_name) and (password == self.pass_code):
-            messagebox.showinfo("Login", f"Logged in as {username}!")
+        # if (username == self.user_name) and (password == self.pass_code):
+        #     messagebox.showinfo("Login", f"Logged in as {username}!")
+        if Authenticate(username, password):
+            # messagebox.showinfo("Login", f"Logged in as {username}!")
+            self.open_profile()
         else:
             messagebox.showwarning("Login", "Invalid username or password.")
         # Clear input fields after login attempt
@@ -86,6 +97,11 @@ class LoginApp:
     def open_registration_window(self):
         self.master.withdraw()  # Minimize the main window
         RegistrationWindow(self.master)
+
+    def open_profile(self):
+        # Minimize the main login window and open the Profile window
+        self.master.withdraw()
+        Profile(self.master)
 
 
 # Run the application

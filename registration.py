@@ -1,17 +1,22 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+from data import Student, Book, add_book, add_student
 
 class RegistrationWindow:
     def __init__(self, master):
         self.master = master
         self.window = tk.Toplevel(master)  # Create a new top-level window
         self.window.title("Register")
-        self.window.geometry("800x600")
 
+        width = self.master.winfo_screenwidth()
+        height = self.master.winfo_screenheight()
+
+        # self.window.geometry(f"{width}x{height}")
+        self.window.state("zoomed")
         # Load the background image
-        self.background_image = Image.open("books2.jpg")  # Replace with your image path
-        self.background_image = self.background_image.resize((800, 600), Image.LANCZOS)
+        self.background_image = Image.open("image/books2.jpg")  # Replace with your image path
+        self.background_image = self.background_image.resize((width, height), Image.LANCZOS)
         self.bg_image = ImageTk.PhotoImage(self.background_image)
 
         # Create a label to hold the background image
@@ -35,57 +40,10 @@ class RegistrationWindow:
         # Create registration form fields
         self.create_form()
 
-    # def create_form(self):
-    #     # List of labels and types
-    #     form_fields = [
-    #         ("Name:", "text"),
-    #         ("Email:", "email"),
-    #         ("Phone:", "number"),
-    #         ("Address:", "text"),
-    #         ("Password:", "password"),
-    #         ("Confirm Password:", "password"),
-    #     ]
-
-    #     self.entries = {}
-
-    #     # Define consistent spacing values
-    #     padding_y = 10  # Consistent padding for labels and entries
-    #     entry_width = 30  # Width for entry fields
-
-    #     for label_text, field_type in form_fields:
-    #         # Create a frame for each input
-    #         frame = tk.Frame(self.main_frame, bg="white")
-    #         frame.pack(pady=(padding_y, 10), padx=10, fill=tk.X)
-
-    #         # Label
-    #         label = tk.Label(frame, text=label_text, bg="white", fg="#333", font=("Arial", 12, "bold"))
-    #         label.pack(side=tk.LEFT, padx=(10, 5), pady=(0, padding_y))  # Apply bottom padding
-
-    #         # Entry
-    #         entry = tk.Entry(frame, width=entry_width, borderwidth=0, font=("Arial", 12), bg="#f2f2f2", fg="#333", highlightthickness=0)
-    #         entry.pack(side=tk.LEFT, padx=(5, 10), pady=(0, padding_y))  # Apply bottom padding
-    #         entry.bind("<FocusIn>", lambda e: entry.config(bg="#e0e0e0"))  # Change bg on focus
-    #         entry.bind("<FocusOut>", lambda e: entry.config(bg="#f2f2f2"))  # Reset bg on focus out
-    #         self.entries[label_text] = entry  # Add entry to the dictionary
-
-    #         # Add bottom border effect
-    #         bottom_border = tk.Frame(frame, height=2, bg="#4CAF50")
-    #         bottom_border.pack(side=tk.BOTTOM, fill=tk.X, padx=10)
-
-    #     # Submit button with modern style
-    #     self.submit_button = tk.Button(self.main_frame, text="Submit", command=self.submit, width=15,
-    #                                 bg="#4CAF50", fg="white", font=("Arial", 12, "bold"), bd=0,
-    #                                 activebackground="#45a049", highlightthickness=0)
-    #     self.submit_button.pack(pady=(padding_y * 2, 20))  # Add extra padding above the button
-
-    #     # Optional: Add a hover effect for the button
-    #     self.submit_button.bind("<Enter>", lambda e: self.submit_button.config(bg="#45a049"))
-    #     self.submit_button.bind("<Leave>", lambda e: self.submit_button.config(bg="#4CAF50"))
-
     def create_form(self):
         # List of labels and types
         form_fields = [
-            ("Name:", "text"),
+            ("Username:", "text"),
             ("Email:", "email"),
             ("Phone:", "number"),
             ("Address:", "text"),
@@ -120,40 +78,9 @@ class RegistrationWindow:
         self.submit_button.pack(pady=20)
 
 
-
-    # def create_form(self):
-    #     # List of labels and types
-    #     form_fields = [
-    #         ("Name:", "text"),
-    #         ("Email:", "email"),
-    #         ("Phone:", "number"),
-    #         ("Address:", "text"),
-    #         ("Password:", "password"),
-    #         ("Confirm Password:", "password"),
-    #     ]
-
-    #     self.entries = {}
-
-    #     for label_text, field_type in form_fields:
-    #         frame = tk.Frame(self.main_frame, bg="#FFFFFF")
-    #         frame.pack(pady=5)
-
-    #         label = tk.Label(frame, text=label_text, bg="#FFFFFF")
-    #         label.pack(side=tk.LEFT, padx=10)
-
-    #         entry = tk.Entry(frame, width=30, borderwidth=2, relief=tk.SUNKEN)
-    #         if field_type == "password":
-    #             entry.config(show="*")  # Mask password
-    #         entry.pack(side=tk.LEFT, padx=10)
-    #         self.entries[label_text] = entry
-
-    #     # Submit button
-    #     self.submit_button = tk.Button(self.main_frame, text="Submit", command=self.submit, width=15, bg="#4CAF50", fg="white")
-    #     self.submit_button.pack(pady=20)
-
     def submit(self):
         # Here you would add your registration logic
-        name = self.entries["Name:"].get()
+        name = self.entries["Username:"].get()
         email = self.entries["Email:"].get()
         phone = self.entries["Phone:"].get()
         address = self.entries["Address:"].get()
@@ -170,8 +97,5 @@ class RegistrationWindow:
         else:
             messagebox.showwarning("Registration", "Passwords do not match!")
 
+
 # Run the application
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = LoginApp(root)
-    root.mainloop()
